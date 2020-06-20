@@ -17,7 +17,7 @@ void invariance_verify() {
         int b = rand() % buffer.size();
         if (a > b) std::swap(a, b);
         std::fill(buffer2.begin() + a, buffer2.begin() + b, '\x00');
-        vrfs_read(nullptr, &buffer2[a], b - a, a + global_offset, nullptr);
+        vrfs_read(nullptr, &buffer2[a], static_cast<size_t>(b) - a, a + global_offset, nullptr);
         if (buffer != buffer2) std::abort();
     }
 }
@@ -68,4 +68,5 @@ int main(int /* argc */, char** /* argv */) {
     invariance_verify();
     frequency_gap_verify();
     serial_verify();
+    std::cout << "Passed verification" << std::endl;
 }

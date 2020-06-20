@@ -2,6 +2,7 @@
 #include <cctype>
 #include <iostream>
 #include <vector>
+#include <string>
 
 #include "file_ops.h"
 
@@ -11,7 +12,7 @@ void set_file_size(const std::string& size_str) {
     uint64_t bytes = std::stoull(size_str, &next_char);
 
     std::string unit = size_str.substr(next_char);
-    for (auto& c : unit) c = std::tolower(c);
+    for (auto& c : unit) c = static_cast<char>(std::tolower(c));
     if (unit == "b" || unit == "") bytes *= 1;
     else if (unit == "kb" || unit == "k") bytes *= 1024;
     else if (unit == "mb" || unit == "m") bytes *= 1024 * 1024;
